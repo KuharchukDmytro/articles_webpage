@@ -1,0 +1,16 @@
+.articles-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card__bottom-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  & > * {
+    font-size: 14px;
+  }
+}
