@@ -1,0 +1,1 @@
+export { TenArticlesPage } from './TenArticlesPage';

@@ -14,10 +14,10 @@ export const NavigationLink: FC<Props> = ({ to, title }) => (
   <NavLink
     to={to}
     className={({ isActive }) => classNames(
-      'navigation-bar__item',
-      { 'navigation-bar__item--is-active': isActive },
+      'navigation-link',
+      { 'navigation-link--is-active': isActive },
     )}
   >
-    <span className="navigation-bar__item-title">{title}</span>
+    <span className="navigation-link-title">{title}</span>
   </NavLink>
 );

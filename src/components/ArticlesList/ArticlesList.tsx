@@ -1,57 +1,82 @@
 import { useEffect, useState } from "react";
 import { getAllArticles } from '../../api/fetchingArticles';
-// import { Card } from "../Card";
-import { Card } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 import './ArticlesList.scss';
+import { Article } from "../../types/Article";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { actions } from "../../features/articles";
 
 export const ArticlesList = () => {
-  const [articles, setArticles] = useState<any>([]);
+  const articles = useAppSelector(state => state.articles);
+  const [articlesFromServer, setArticlesFromServer] = useState<Article[]>([]);
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getArticlesFromServer = async() => {
       try {
-        const articlesFromServer = await getAllArticles();
+        const serverArticles = await getAllArticles();
 
-        setArticles(articlesFromServer.articles);
+        setArticlesFromServer(serverArticles.articles);
       } catch (error) {
-        console.log(error);
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     getArticlesFromServer();
   }, []);
 
+  const handleClick = (article: Article) => {
+    if (articles.some(art => art.urlToImage === article.urlToImage)) {
+      dispatch(actions.remove(article.urlToImage));
+
+      return;
+    }
+
+    dispatch(actions.add(article));
+  }
+
   return (
     <div className='articles-list'>
-      {articles.length > 0 && articles.map((article: any) => (
-        // <Card
-        //   author={article.author}
-        //   title={article.title}
-        //   description={article.description}
-        //   imgUrl={article.urlToImage}
-        //   date={article.publishedAt}
-        // />
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={article.urlToImage} />
-          <Card.Body>
-            <Card.Title>{article.title}</Card.Title>
-            <Card.Text>
-              {article.description}
-            </Card.Text>
-          </Card.Body>
+      {isLoading && (
+        <Spinner />
+      )}
 
-          <div className='card__bottom-section'>
-            <Card.Text>
-              {new Date(article.publishedAt).toDateString()}
-            </Card.Text>
-            <Card.Text>
-              {article.author
+      {hasError && (
+        <p style={{ color: 'red' }}>Error occured when data loading</p>
+      )}
+
+      {(!hasError && !isLoading && articlesFromServer.length > 0)
+        && articlesFromServer.map((article) => (
+          <Card className='card'>
+            <Card.Img variant="top" src={article.urlToImage} />
+            <Card.Body>
+              <Card.Title>{article.title}</Card.Title>
+              <Card.Text>
+                {article.description}
+              </Card.Text>
+            </Card.Body>
+
+            <Button
+              variant="primary"
+              className="card__pin-btn"
+              onClick={() => handleClick(article)}
+            >
+              {articles.some(art => art.urlToImage === article.urlToImage)
+                ? 'Added'
+                : 'Add'}
+            </Button>
+
+            <Card.Text className='card__author'>
+              {`by ${article.author
                 ? article.author
-                : 'Unknown'}
+                : 'Unknown'}`}
             </Card.Text>
-          </div>
-        </Card>
-      ))}
+          </Card>
+        ))}
     </div>
   );
 };

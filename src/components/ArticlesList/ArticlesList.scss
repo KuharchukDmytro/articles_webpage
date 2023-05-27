@@ -1,16 +1,41 @@
+@import '../../styles/mixins';
+
 .articles-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
+  padding: 0 16px;
+  margin: 0 auto;
+
+  @include onTablet {
+    max-width: 576px;
+  }
+
+  @include onLaptop {
+    max-width: 992px;
+  }
 }
 
-.card__bottom-section {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
+.card {
+  width: 100%;
 
-  & > * {
-    font-size: 14px;
+  @include onTablet {
+    max-width: 264px;
+  }
+
+  &__pin-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 100%;
+    max-width: 60px;
+
+    font-size: 10px;
+  }
+
+  &__author {
+    align-self: flex-end;
+    margin: 0 16px;
   }
 }

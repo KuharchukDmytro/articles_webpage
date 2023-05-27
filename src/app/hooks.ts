@@ -1,4 +1,10 @@
 import { useCallback, useState } from 'react';
+import { TypedUseSelectorHook, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "./store"
+import { useDispatch } from "react-redux";
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 type LocalStorage<T> = [T, (value: T | ((val: T) => T)) => void];
 
