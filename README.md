@@ -6,6 +6,7 @@
 
 <ul>
   <li>React</li>
+  <li>Redux</li>
   <li>TypeScript</li>
   <li>React Router Dom</li>
   <li>SASS</li>
