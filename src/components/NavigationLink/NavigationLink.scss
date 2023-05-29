@@ -2,9 +2,9 @@
   color: #000;
   text-decoration: none;
   margin-right: 16px;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: #555;
+    color: #777;
   }
-
 }

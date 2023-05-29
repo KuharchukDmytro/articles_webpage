@@ -4,12 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './App.tsx'
 import { Provider } from 'react-redux';
 import store from './app/store.ts';
+import { UserProvider } from './context/UserContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <UserProvider>
+          <App />
+        </UserProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

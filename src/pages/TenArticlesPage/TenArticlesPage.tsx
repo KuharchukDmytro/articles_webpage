@@ -1,9 +1,9 @@
-import { ArticlesList } from "../../components/ArticlesList/ArticlesList";
+import { RandomArticlesList } from "../../components/RandomArticlesList";
 
 export const TenArticlesPage = () => {
   return (
     <div>
-      <ArticlesList />
+      <RandomArticlesList />
     </div>
   );
 };

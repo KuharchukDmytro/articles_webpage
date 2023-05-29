@@ -23,4 +23,4 @@ const pinnedArticle = createSlice({
 })
 
 export default pinnedArticle.reducer;
-export const { pin, unpin } = pinnedArticle.actions;
+export const { actions } = pinnedArticle;

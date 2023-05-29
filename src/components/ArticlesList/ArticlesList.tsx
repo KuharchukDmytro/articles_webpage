@@ -1,82 +1,79 @@
-import { useEffect, useState } from "react";
-import { getAllArticles } from '../../api/fetchingArticles';
-import { Button, Card, Spinner } from "react-bootstrap";
+import { useAppDispatch, useAppSelector, useLocalStorage } from "../../app/hooks";
+import { actions as articlesActions } from "../../features/articles";
+import { actions as pinnedArticleActions } from "../../features/pinnedArticle";
+
+import { Button, Card } from "react-bootstrap";
 import './ArticlesList.scss';
+
 import { Article } from "../../types/Article";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { actions } from "../../features/articles";
+
 
 export const ArticlesList = () => {
+  const [user] = useLocalStorage('user');
   const articles = useAppSelector(state => state.articles);
-  const [articlesFromServer, setArticlesFromServer] = useState<Article[]>([]);
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const pinnedArticle = useAppSelector(state => state.pinnedArticle);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const getArticlesFromServer = async() => {
-      try {
-        const serverArticles = await getAllArticles();
-
-        setArticlesFromServer(serverArticles.articles);
-      } catch (error) {
-        setHasError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    getArticlesFromServer();
-  }, []);
-
   const handleClick = (article: Article) => {
-    if (articles.some(art => art.urlToImage === article.urlToImage)) {
-      dispatch(actions.remove(article.urlToImage));
+    dispatch(articlesActions.remove(article));
+  }
+
+  const handlePin = (article: Article) => {
+    if (JSON.stringify(article) === JSON.stringify(pinnedArticle.pinnedArticle)) {
+      dispatch(pinnedArticleActions.unpin());
 
       return;
     }
 
-    dispatch(actions.add(article));
+    dispatch(pinnedArticleActions.pin(article));
+    dispatch(articlesActions.update(article))
   }
 
   return (
     <div className='articles-list'>
-      {isLoading && (
-        <Spinner />
-      )}
+      {(articles.length > 0)
+        && articles.map((article, ind) => {
+          const isArticlePinned = JSON.stringify(article) === JSON.stringify(pinnedArticle.pinnedArticle);
 
-      {hasError && (
-        <p style={{ color: 'red' }}>Error occured when data loading</p>
-      )}
+          return (
+            <Card className='home-card' key={article.title + ind}>
+              <Card.Body>
+                <Card.Title>{article.title}</Card.Title>
+                <Card.Text>
+                  {article.description}
+                </Card.Text>
+              </Card.Body>
 
-      {(!hasError && !isLoading && articlesFromServer.length > 0)
-        && articlesFromServer.map((article) => (
-          <Card className='card'>
-            <Card.Img variant="top" src={article.urlToImage} />
-            <Card.Body>
-              <Card.Title>{article.title}</Card.Title>
-              <Card.Text>
-                {article.description}
+              <Card.Text style={{ marginBottom: '8px' }} className='card__author'>
+                {`by ${article.author
+                  ? article.author
+                  : 'Unknown'}`}
               </Card.Text>
-            </Card.Body>
 
-            <Button
-              variant="primary"
-              className="card__pin-btn"
-              onClick={() => handleClick(article)}
-            >
-              {articles.some(art => art.urlToImage === article.urlToImage)
-                ? 'Added'
-                : 'Add'}
-            </Button>
+              <div className="home-card__btn-container">
+                <Button
+                  variant={isArticlePinned ? 'warning' : 'primary'}
+                  className="home-card__pin-btn"
+                  onClick={() => handlePin(article)}
+                >
+                  {isArticlePinned
+                    ? 'Unpin'
+                    : 'Pin'}
+                </Button>
 
-            <Card.Text className='card__author'>
-              {`by ${article.author
-                ? article.author
-                : 'Unknown'}`}
-            </Card.Text>
-          </Card>
-        ))}
+                {article.author === user && (
+                  <Button
+                    variant="danger"
+                    className="home-card__pin-btn"
+                    onClick={() => handleClick(article)}
+                  >
+                    Remove
+                  </Button>
+                )}
+              </div>
+            </Card>
+          );
+        })}
     </div>
   );
 };

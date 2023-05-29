@@ -1,0 +1,1 @@
+export { RandomArticlesList } from './RandomArticlesList';

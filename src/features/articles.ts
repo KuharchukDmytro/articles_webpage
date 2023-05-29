@@ -1,14 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Article } from "../types/Article";
 
+import { someData } from "../app/data";
+
 const articlesSlice = createSlice({
   name: 'articles',
-  initialState: [] as Article[],
+  initialState: someData,
   reducers: {
-    add: (articles, action: PayloadAction<Article>) => [...articles, action.payload],
-    remove: (articles, action: PayloadAction<string>) => articles.filter(
-      article => article.urlToImage !== action.payload,
+    add: (articles, action: PayloadAction<Article>) => [action.payload, ...articles],
+    remove: (articles, action: PayloadAction<Article>) => articles.filter(
+      article => JSON.stringify(article) !== JSON.stringify(action.payload),
     ),
+    update: (articles, action: PayloadAction<Article>) => {
+      const articleToUpdate = action.payload;
+      const filteredArticles = articles.filter(article => JSON.stringify(article) !== JSON.stringify(articleToUpdate));
+
+      return [articleToUpdate, ...filteredArticles]
+    },
   }
 })
 

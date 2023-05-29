@@ -1,6 +1,6 @@
 @import '../../styles/mixins';
 
-.articles-list {
+.random-articles-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -15,24 +15,28 @@
   @include onLaptop {
     max-width: 992px;
   }
+
+  &__loader-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
-.home-card {
+.card {
   width: 100%;
 
   @include onTablet {
     max-width: 264px;
   }
 
-  &__btn-container {
-    display: flex;
-    gap: 16px;
-    margin: 0 16px 8px;
-  }
-
   &__pin-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     width: 100%;
-    max-width: 70px;
+    max-width: 60px;
 
     font-size: 10px;
   }
