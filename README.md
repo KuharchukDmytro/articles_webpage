@@ -1,4 +1,4 @@
-<h4>The Articles Webpage is a portal where you can read and post some articles about whatever you want/</h4>
+<h1>The Articles Webpage is a portal where you can read and post some articles about whatever you want.</h1>
 
 <hr/>
 
