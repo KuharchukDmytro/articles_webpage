@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Article } from "../types/Article";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Article } from '../types/Article';
 
 interface ArticlesState {
   pinnedArticle: Article | null;

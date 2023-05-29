@@ -1,10 +1,13 @@
 import { FormEvent, useContext, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
-import './AddForm.scss';
+
 import { Button, Form } from 'react-bootstrap';
-import { Article } from '../../types/Article';
+import './AddForm.scss';
+
 import { useAppDispatch } from '../../app/hooks';
 import { actions } from '../../features/articles';
+
+import { UserContext } from '../../context/UserContext';
+import { Article } from '../../types/Article';
 
 export const AddForm = () => {
   const dispatch = useAppDispatch();
@@ -38,19 +41,20 @@ export const AddForm = () => {
     <div className='add-form'>
       {!user && (
         <Form onSubmit={handleSubmitUser}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
             <Form.Label>Author name</Form.Label>
+
             <Form.Control
-              type="text"
-              placeholder="Enter your name"
+              type='text'
+              placeholder='Enter your name'
               value={userName}
               onChange={(event) => setUserName(event.target.value)}
             />
           </Form.Group>
 
           <Button
-            variant="primary"
-            type="submit"
+            variant='primary'
+            type='submit'
           >
             Submit
           </Button>
@@ -59,31 +63,31 @@ export const AddForm = () => {
 
       {user && (
         <Form onSubmit={handleSubmitArticle}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
             <Form.Label>Title</Form.Label>
 
             <Form.Control
-              type="text"
+              type='text'
               value={articleTitle}
               onChange={(event) => setArticleTitle(event.target.value)}
-              placeholder="Enter article title"
+              placeholder='Enter article title'
               required
             />
           </Form.Group>
     
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
             <Form.Label>Description</Form.Label>
 
             <Form.Control
-              type="text"
+              type='text'
               value={articleDescription}
               onChange={(event) => setArticleDescription(event.target.value)}
-              placeholder="Enter article description"
+              placeholder='Enter article description'
               required
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant='primary' type='submit'>
             Submit
           </Button>
         </Form>

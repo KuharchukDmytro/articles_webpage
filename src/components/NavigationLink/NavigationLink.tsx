@@ -18,6 +18,6 @@ export const NavigationLink: FC<Props> = ({ to, title }) => (
       { 'navigation-link--is-active': isActive },
     )}
   >
-    <span className="navigation-link-title">{title}</span>
+    <span className='navigation-link-title'>{title}</span>
   </NavLink>
 );

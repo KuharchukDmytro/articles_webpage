@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { Article } from '../types/Article';
 
 const randomArticlesCacheSlice = createSlice({
   name: 'randomArticlesCache',
-  initialState: [] as any[],
+  initialState: [] as Article[],
   reducers: {
     add: (randomArticlesCache, action) => [
       ...randomArticlesCache,

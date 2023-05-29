@@ -1,4 +1,4 @@
-import { RandomArticlesList } from "../../components/RandomArticlesList";
+import { RandomArticlesList } from '../../components/RandomArticlesList';
 
 export const TenArticlesPage = () => {
   return (

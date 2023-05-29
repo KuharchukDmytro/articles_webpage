@@ -8,8 +8,7 @@ type UserContextType = {
 
 export const UserContext = createContext<UserContextType>({
   user: '',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setUser: () => {},
+  setUser: () => undefined,
 });
 
 type UserProviderProps = {

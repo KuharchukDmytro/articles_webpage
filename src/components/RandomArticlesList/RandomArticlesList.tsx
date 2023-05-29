@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Button, Card, Spinner } from "react-bootstrap";
+import { Button, Card, Spinner } from 'react-bootstrap';
 import './RandomArticlesList.scss';
 
 import { getAllArticles } from '../../api/fetchingArticles';
-import { Article } from "../../types/Article";
+import { Article } from '../../types/Article';
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { actions } from "../../features/randomArticlesCache";
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { actions } from '../../features/randomArticlesCache';
 
 export const RandomArticlesList = () => {
   const randomArticlesCache = useAppSelector(state => state.randomArticlesCache);
@@ -46,8 +46,6 @@ export const RandomArticlesList = () => {
     getArticlesFromServer();
   }, [loadCounter]);
 
-  console.log(loadCounter, randomArticlesCache);
-
   return (
     <>
       {!isLoading && (
@@ -59,7 +57,7 @@ export const RandomArticlesList = () => {
             width: '120px',
             zIndex: '1'
           }}
-          variant="primary"
+          variant='primary'
           onClick={() => setLoadCounter(prev => prev + 1)}
         >
           {articlesFromServer.length < 10 || hasError
@@ -86,7 +84,7 @@ export const RandomArticlesList = () => {
         {(!hasError && !isLoading && articlesFromServer.length > 0)
           && articlesFromServer.map((article, ind) => (
             <Card className='card' key={article.title + ind}>
-              <Card.Img variant="top" src={article.urlToImage} />
+              <Card.Img variant='top' src={article.urlToImage} />
 
               <Card.Body>
                 <Card.Title>{article.title}</Card.Title>

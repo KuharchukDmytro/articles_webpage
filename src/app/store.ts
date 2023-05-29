@@ -1,4 +1,3 @@
-// npm i redux @types/redux
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import articleReducer from '../features/articles';

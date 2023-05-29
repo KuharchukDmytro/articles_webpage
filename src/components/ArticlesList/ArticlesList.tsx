@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector, useLocalStorage } from "../../app/hooks";
-import { actions as articlesActions } from "../../features/articles";
-import { actions as pinnedArticleActions } from "../../features/pinnedArticle";
+import { useAppDispatch, useAppSelector, useLocalStorage } from '../../app/hooks';
+import { actions as articlesActions } from '../../features/articles';
+import { actions as pinnedArticleActions } from '../../features/pinnedArticle';
 
-import { Button, Card } from "react-bootstrap";
+import { Button, Card } from 'react-bootstrap';
 import './ArticlesList.scss';
 
-import { Article } from "../../types/Article";
+import { Article } from '../../types/Article';
 
 
 export const ArticlesList = () => {
@@ -50,10 +50,10 @@ export const ArticlesList = () => {
                   : 'Unknown'}`}
               </Card.Text>
 
-              <div className="home-card__btn-container">
+              <div className='home-card__btn-container'>
                 <Button
                   variant={isArticlePinned ? 'warning' : 'primary'}
-                  className="home-card__pin-btn"
+                  className='home-card__pin-btn'
                   onClick={() => handlePin(article)}
                 >
                   {isArticlePinned
@@ -63,8 +63,8 @@ export const ArticlesList = () => {
 
                 {article.author === user && (
                   <Button
-                    variant="danger"
-                    className="home-card__pin-btn"
+                    variant='danger'
+                    className='home-card__pin-btn'
                     onClick={() => handleClick(article)}
                   >
                     Remove

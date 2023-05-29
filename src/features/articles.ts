@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Article } from "../types/Article";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Article } from '../types/Article';
 
-import { someData } from "../app/data";
+import { someData } from '../app/data';
 
 const articlesSlice = createSlice({
   name: 'articles',
@@ -13,9 +13,11 @@ const articlesSlice = createSlice({
     ),
     update: (articles, action: PayloadAction<Article>) => {
       const articleToUpdate = action.payload;
-      const filteredArticles = articles.filter(article => JSON.stringify(article) !== JSON.stringify(articleToUpdate));
+      const filteredArticles = articles.filter(
+        article => JSON.stringify(article) !== JSON.stringify(articleToUpdate),
+      );
 
-      return [articleToUpdate, ...filteredArticles]
+      return [articleToUpdate, ...filteredArticles];
     },
   }
 })
