@@ -9,7 +9,7 @@ import { UserProvider } from './context/UserContext.tsx';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/articles_webpage">
         <UserProvider>
           <App />
         </UserProvider>
